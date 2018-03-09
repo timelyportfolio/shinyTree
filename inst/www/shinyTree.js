@@ -23,10 +23,19 @@ var shinyTree = function(){
         plugins.push('dnd');
       }
       
-      var tree = $(el).jstree({'core' : {
-        "check_callback" : ($elem.data('st-dnd') === 'TRUE'),
-        'themes': {'name': $elem.data('st-theme'), 'responsive': true, 'icons': ($elem.data('st-theme-icons') === 'TRUE'), 'dots': ($elem.data('st-theme-dots') === 'TRUE') }
-      },plugins: plugins});
+      var tree = $(el).jstree({
+        'core' : {
+          "check_callback" : ($elem.data('st-dnd') === 'TRUE'),
+          'themes': {
+            'name': $elem.data('st-theme'),
+            'url': true, // guess path by theme name
+            'responsive': true,
+            'icons': ($elem.data('st-theme-icons') === 'TRUE'),
+            'dots': ($elem.data('st-theme-dots') === 'TRUE')
+          }
+        },
+        plugins: plugins
+      });
     }
   });
   Shiny.outputBindings.register(treeOutput, 'shinyTree.treeOutput');
