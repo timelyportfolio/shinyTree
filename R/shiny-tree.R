@@ -32,16 +32,16 @@ shinyTree <- function(outputId, checkbox=FALSE, search=FALSE, dragAndDrop=FALSE,
   # define theme tags (default, default-dark, or proton)
   theme.tags<-shiny::tags$link(rel = 'stylesheet',
                                type = 'text/css',
-                               href = paste('shinyTree/jsTree-3.3.3/themes/',theme,'/style.min.css',sep=""))
+                               href = paste('shinyTree/jsTree-3.3.5/themes/',theme,'/style.min.css',sep=""))
   
   shiny::tagList(
     shiny::singleton(shiny::tags$head(
       initResourcePaths(),
-      theme.tags,
+      #theme.tags,
       shiny::tags$link(rel = "stylesheet", 
                 type = "text/css", 
                 href = "shared/font-awesome/css/font-awesome.min.css"),
-      shiny::tags$script(src = 'shinyTree/jsTree-3.3.3/jstree.min.js'),
+      shiny::tags$script(src = 'shinyTree/jsTree-3.3.5/jstree.min.js'),
       shiny::tags$script(src = 'shinyTree/shinyTree.js')
     )),
     searchEl,
