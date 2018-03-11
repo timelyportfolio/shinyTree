@@ -14,7 +14,7 @@ initResourcePaths <- function() {
 #' @importFrom methods loadMethod
 .onAttach <- function(libname, pkgname){
   shiny::registerInputHandler("shinyTree", function(val, shinysession, name){
-    jsonToAttr(val)    
+    val
   })
 }
 

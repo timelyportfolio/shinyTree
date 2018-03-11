@@ -81,3 +81,54 @@ get_selected_classid <- function(tree, ancestry=NULL, vec=list()){
     }
     return(vec)
   }
+
+recurse <- function(l, func, ...) {
+  l <- func(l, ...)
+  if(is.list(l) && length(l)>0){
+    lapply(
+      l,
+      function(ll){
+        recurse(ll, func, ...)
+      }
+    )
+  } else {
+    
+  }
+}
+
+#' Get Selected Nodes
+#' 
+#' @param tree \code{List} returned from a 'ShinyTree'.
+#' @export
+get_selected_nodes <- function(tree = NULL) {
+  if(is.null(tree)) { return(NULL) }
+  selected <- c()
+  
+  lapply(
+    tree,
+    function(x) {
+      recurse(
+        x,
+        function(y){
+          if(
+            !is.null(names(y)) &&
+            !is.null(y$state$selected) &&
+            y$state$selected == TRUE &&
+            # only leaves
+            length(y$children) == 0
+          ) {
+            selected <<- c(
+              selected,
+              y$text
+            )
+          }
+          if(is.list(y) && "children" %in% names(y) && length(y$children) > 0) {
+            y$children
+          } else {
+          }
+        }
+      )
+    }
+  )
+  return(selected)
+}

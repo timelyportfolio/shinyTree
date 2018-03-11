@@ -129,8 +129,8 @@ var shinyTree = function(){
       if (tree) { // May not be loaded yet.
         if(tree.get_container().find("li").length>0) { // The tree may be initialized but empty
           var js = tree.get_json();
-          var pruned =  prune(js, ['id', 'state', 'text', 'li_attr']);
-          return pruned;
+          //var pruned =  prune(js, ['id', 'state', 'text', 'li_attr']);
+          return js;
         }
       }
     },
@@ -163,8 +163,18 @@ var shinyTree = function(){
     receiveMessage: function(el, message) {
       // This receives messages of type "updateTree" from the server.
       if(message.type == 'updateTree' && typeof message.data !== 'undefined') {
+        // make sure that jstree has been rendered
+        //  surely there is a better way to do this
+        if( $(el).jstree(true) === false ) {
+          Shiny.outputBindings.bindingNames["shinyTree.treeOutput"]
+            .binding.renderValue(el);
+        }
+        
+        // make sure that jstree rendered and ready
+        if($(el).jstree(true)) {
           $(el).jstree(true).settings.core.data = JSON.parse(message.data);
           $(el).jstree(true).refresh(true, true);
+        }
       }
     }
   });

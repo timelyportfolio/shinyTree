@@ -20,7 +20,7 @@ updateTree <- function(session, treeId, data=NULL) {
 
 
 Rlist2json <- function(nestedList) {
-  json <- as.character(jsonlite::toJSON(get_flatList(nestedList), auto_unbox = T))
+  json <- as.character(jsonlite::toJSON(nestedList, auto_unbox = T))
 }
 
 get_flatList <- function(nestedList, flatList = NULL, parent = "#") {
