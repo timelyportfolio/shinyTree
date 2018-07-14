@@ -13,9 +13,17 @@
 #' @param theme jsTree theme, one of \code{default}, \code{default-dark}, or \code{proton}.
 #' @param themeIcons If \code{TRUE}, will show theme icons for each item.
 #' @param themeDots If \code{TRUE}, will include level dots.
+#' @parem config \code{list} of additional jsTree config
 #' @seealso \code{\link{renderTree}}
 #' @export
-shinyTree <- function(outputId, checkbox=FALSE, search=FALSE, dragAndDrop=FALSE, theme="default", themeIcons=TRUE, themeDots=TRUE){
+shinyTree <- function(
+  outputId,
+  checkbox=FALSE,
+  search=FALSE,
+  dragAndDrop=FALSE,
+  theme="default", themeIcons=TRUE, themeDots=TRUE,
+  config=NULL
+){
   searchEl <- shiny::div("")
   if (search == TRUE){
     search <- paste0(outputId, "-search-input")
@@ -51,7 +59,8 @@ shinyTree <- function(outputId, checkbox=FALSE, search=FALSE, dragAndDrop=FALSE,
         `data-st-dnd`=dragAndDrop,
         `data-st-theme`=theme,
         `data-st-theme-icons`=themeIcons,
-        `data-st-theme-dots`=themeDots
+        `data-st-theme-dots`=themeDots,
+        `data-st-config`=jsonlite::toJSON(config, auto_unbox=TRUE)
         )
   )
 }

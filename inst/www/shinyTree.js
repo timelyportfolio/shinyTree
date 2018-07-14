@@ -23,7 +23,7 @@ var shinyTree = function(){
         plugins.push('dnd');
       }
       
-      var tree = $(el).jstree({
+      var config = {
         'core' : {
           "check_callback" : ($elem.data('st-dnd') === 'TRUE'),
           'themes': {
@@ -35,7 +35,11 @@ var shinyTree = function(){
           }
         },
         plugins: plugins
-      });
+      };
+      
+      config = $.extend(config, $elem.data('st-config'));
+      
+      var tree = $(el).jstree(config);
     }
   });
   Shiny.outputBindings.register(treeOutput, 'shinyTree.treeOutput');

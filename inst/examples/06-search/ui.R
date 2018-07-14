@@ -16,6 +16,9 @@ shinyUI(
     ),
     mainPanel(
       # Show a simple table.
-      shinyTree("tree", search=TRUE)
+      shinyTree(
+        "tree", search=TRUE,
+        config=list("search" = list("show_only_matches" = TRUE))
+      )
     )
   ))
