@@ -36,7 +36,7 @@ shinyTree <- function(
       placeholder="Search",
       shiny::tags$i(
         class = "fa fa-search",
-        style = "position:absolute;left:20px;top:0.25em;padding-right:8px;color:#aaa;"
+        style = "font-size:1em;position:absolute;left:20px;top:0.25em;padding-right:8px;color:#aaa;"
       )
     )
   }
