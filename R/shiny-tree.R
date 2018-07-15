@@ -24,10 +24,21 @@ shinyTree <- function(
   theme="default", themeIcons=TRUE, themeDots=TRUE,
   config=NULL
 ){
-  searchEl <- shiny::div("")
+  searchEl <- shiny::div(style="position: relative;","")
   if (search == TRUE){
     search <- paste0(outputId, "-search-input")
-    searchEl <- shiny::tags$input(id=search, class="input", type="text", value="")
+    searchEl <- shiny::tags$input(
+      id=search,
+      class="input",
+      style="padding-left:40px;",
+      type="text",
+      value="",
+      placeholder="Search",
+      shiny::tags$i(
+        class = "fa fa-search",
+        style = "position:absolute;left:20px;top:0.25em;padding-right:8px;color:#aaa;"
+      )
+    )
   }
   if (is.character(search)){
     # Either the search field we just created or the given text field ID
