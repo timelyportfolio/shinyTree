@@ -18,7 +18,7 @@ var shinyTree = function(){
       }
       if ($elem.data('st-search') === 'TRUE'){
         plugins.push('search');
-      }      
+      }  
       if ($elem.data('st-dnd') === 'TRUE'){
         plugins.push('dnd');
       }
@@ -40,6 +40,13 @@ var shinyTree = function(){
       config = $.extend(config, $elem.data('st-config'));
       
       var tree = $(el).jstree(config);
+      
+      if ($elem.data('st-search') === 'TRUE'){
+        $elem.siblings().find('.search-remove').click(function () {
+          $(this).parent().find('.input').val('');
+          $.jstree.reference($elem).search('');
+        });
+      }
     }
   });
   Shiny.outputBindings.register(treeOutput, 'shinyTree.treeOutput');

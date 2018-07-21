@@ -1,0 +1,15 @@
+.shinytree-search-box > .search-remove {
+  background-color: inherit;
+  color: #aaa;
+  
+  -webkit-transition: background-color 200ms linear, color 200ms linear;
+  -moz-transition: background-color 200ms linear, color 200ms linear;
+  -o-transition: background-color 200ms linear, color 200ms linear;
+  -ms-transition: background-color 200ms linear, color 200ms linear;
+  transition: background-color 200ms linear, color 200ms linear;
+}
+
+.shinytree-search-box > .search-remove:hover {
+  background-color: #aaa;
+  color: #fff;
+}

@@ -27,16 +27,25 @@ shinyTree <- function(
   searchEl <- shiny::div(style="position: relative;","")
   if (search == TRUE){
     search <- paste0(outputId, "-search-input")
-    searchEl <- shiny::tags$input(
-      id=search,
-      class="input",
-      style="padding-left:40px;",
-      type="text",
-      value="",
-      placeholder="Search",
-      shiny::tags$i(
-        class = "fa fa-search",
-        style = "font-size:1em;position:absolute;left:20px;top:0.25em;padding-right:8px;color:#aaa;"
+    searchEl <- shiny::div(
+      style="position:relative; width:60%;",
+      class="shinytree-search-box",
+      shiny::tags$input(
+        id=search,
+        class="input",
+        style="padding-left:2em; padding-right:2em; margin-bottom:10px; width:100%;",
+        type="text",
+        value="",
+        placeholder="Search",
+        shiny::tags$i(
+          class = "fa fa-search",
+          style = "font-size:1em;position:absolute;left:0.5em;top:0.25em;color:#aaa;"
+        ),
+        shiny::tags$span(
+          class = "search-remove",
+          style = "font-size:1em;position:absolute;right:0.5em;top:0.15em;padding:0.1em;",
+          shiny::tags$i(class = "fa fa-remove")
+        )
       )
     )
   }
@@ -60,6 +69,9 @@ shinyTree <- function(
       shiny::tags$link(rel = "stylesheet", 
                 type = "text/css", 
                 href = "shared/font-awesome/css/font-awesome.min.css"),
+      shiny::tags$link(rel = "stylesheet",
+                type = "text/css",
+                href = "shinyTree/shinyTree.css"),
       shiny::tags$script(src = 'shinyTree/jsTree-3.3.5/jstree.min.js'),
       shiny::tags$script(src = 'shinyTree/shinyTree.js')
     )),
