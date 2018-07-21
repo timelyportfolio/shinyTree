@@ -44,7 +44,7 @@ shinyTree <- function(
         shiny::tags$span(
           class = "search-remove",
           style = "font-size:1em;position:absolute;right:0.5em;top:0.15em;padding:0.1em;",
-          shiny::tags$i(class = "fa fa-remove")
+          shiny::tags$i(style="font-size: 1em;", class = "fa fa-remove")
         )
       )
     )
