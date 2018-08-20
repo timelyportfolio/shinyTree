@@ -5,7 +5,7 @@
 \title{Create a Shiny Tree}
 \usage{
 shinyTree(outputId, checkbox = FALSE, search = FALSE, dragAndDrop = FALSE,
-  theme = "default", themeIcons = TRUE, themeDots = TRUE)
+  theme = "default", themeIcons = TRUE, themeDots = TRUE, config = NULL)
 }
 \arguments{
 \item{outputId}{The ID associated with this element}
@@ -25,6 +25,8 @@ tree.}
 \item{themeIcons}{If \code{TRUE}, will show theme icons for each item.}
 
 \item{themeDots}{If \code{TRUE}, will include level dots.}
+
+\item{config}{\code{list} of additional jsTree config}
 }
 \description{
 This creates a spot in your Shiny UI for a shinyTree which can then be filled

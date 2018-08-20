@@ -2,6 +2,7 @@
 
 export(get_selected)
 export(get_selected_nodes)
+export(get_state_nodes)
 export(renderEmptyTree)
 export(renderTree)
 export(shinyTree)

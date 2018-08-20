@@ -13,7 +13,7 @@
 #' @param theme jsTree theme, one of \code{default}, \code{default-dark}, or \code{proton}.
 #' @param themeIcons If \code{TRUE}, will show theme icons for each item.
 #' @param themeDots If \code{TRUE}, will include level dots.
-#' @parem config \code{list} of additional jsTree config
+#' @param config \code{list} of additional jsTree config
 #' @seealso \code{\link{renderTree}}
 #' @export
 shinyTree <- function(

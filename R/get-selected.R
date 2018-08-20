@@ -132,3 +132,37 @@ get_selected_nodes <- function(tree = NULL) {
   )
   return(selected)
 }
+
+#' Get State for Leaf Nodes
+#' 
+#' @param tree \code{List} returned from a 'ShinyTree'.
+#' @export
+get_state_nodes <- function(tree = NULL) {
+  if(is.null(tree)) { return(NULL) }
+  selected <- list(text=c(), state=list())
+  
+  lapply(
+    tree,
+    function(x) {
+      recurse(
+        x,
+        function(y){
+          if(
+            !is.null(names(y)) &&
+            !is.null(y$state$selected) &&
+            # only leaves
+            length(y$children) == 0
+          ) {
+            selected$text[[length(selected$text) + 1]] <<- y$text
+            selected$state[[length(selected$state) + 1]] <<- y$state
+          }
+          if(is.list(y) && "children" %in% names(y) && length(y$children) > 0) {
+            y$children
+          } else {
+          }
+        }
+      )
+    }
+  )
+  return(selected)
+}
