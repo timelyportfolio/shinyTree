@@ -4,10 +4,12 @@
 \alias{get_state_nodes}
 \title{Get State for Leaf Nodes}
 \usage{
-get_state_nodes(tree = NULL)
+get_state_nodes(tree = NULL, leaves = TRUE)
 }
 \arguments{
 \item{tree}{\code{List} returned from a 'ShinyTree'.}
+
+\item{leaves}{\code{logical} if \code{TRUE} then return only leaf nodes.}
 }
 \description{
 Get State for Leaf Nodes

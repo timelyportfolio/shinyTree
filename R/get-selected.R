@@ -136,8 +136,9 @@ get_selected_nodes <- function(tree = NULL) {
 #' Get State for Leaf Nodes
 #' 
 #' @param tree \code{List} returned from a 'ShinyTree'.
+#' @param leaves \code{logical} if \code{TRUE} then return only leaf nodes.
 #' @export
-get_state_nodes <- function(tree = NULL) {
+get_state_nodes <- function(tree = NULL, leaves = TRUE) {
   if(is.null(tree)) { return(NULL) }
   selected <- list(text=c(), state=list())
   
@@ -149,12 +150,15 @@ get_state_nodes <- function(tree = NULL) {
         function(y){
           if(
             !is.null(names(y)) &&
-            !is.null(y$state$selected) &&
-            # only leaves
-            length(y$children) == 0
+            !is.null(y$state)
           ) {
-            selected$text[[length(selected$text) + 1]] <<- y$text
-            selected$state[[length(selected$state) + 1]] <<- y$state
+            if(
+              (leaves == TRUE && length(y$children) == 0) || # leaf nodes only
+              (leaves == FALSE) # all nodes
+            ) {
+              selected$text[[length(selected$text) + 1]] <<- y$text
+              selected$state[[length(selected$state) + 1]] <<- y$state
+            }
           }
           if(is.list(y) && "children" %in% names(y) && length(y$children) > 0) {
             y$children
