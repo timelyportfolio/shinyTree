@@ -141,7 +141,11 @@ var shinyTree = function(){
         if(tree.get_container().find("li").length>0) { // The tree may be initialized but empty
           var js = tree.get_json();
           //var pruned =  prune(js, ['id', 'state', 'text', 'li_attr']);
-          return js;
+          if(js.length > 0) {
+            return js;
+          } else {
+            return null;
+          }
         }
       }
     },
@@ -159,14 +163,18 @@ var shinyTree = function(){
         callback();
       });
       
+      $(el).on("model.jstree", function(e) {
+        callback();
+      });
+      
       $(el).on("ready.jstree", function(e){
         // Initialize the data.
         callback();
-      })
+      });
       
       $(el).on("move_node.jstree", function(e){
         callback();
-      })
+      });
     },
     unsubscribe: function(el) {
       $(el).off(".jstree");
