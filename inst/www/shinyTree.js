@@ -6,6 +6,32 @@ var shinyTree = function(){
       return $(scope).find('.shiny-tree');
     },
     renderValue: function(el, data) {
+      // ********************* htmlwidgets code to support htmlwidget jsevals ********
+      // Attempt eval() both with and without enclosing in parentheses.
+      // Note that enclosing coerces a function declaration into
+      // an expression that eval() can parse
+      // (otherwise, a SyntaxError is thrown)
+      function tryEval(code) {
+        var result = null;
+        try {
+          result = eval("(" + code + ")");
+        } catch(error) {
+          if (!error instanceof SyntaxError) {
+            throw error;
+          }
+          try {
+            result = eval(code);
+          } catch(e) {
+            if (e instanceof SyntaxError) {
+              throw error;
+            } else {
+              throw e;
+            }
+          }
+        }
+        return result;
+      }
+      
       // Wipe the existing tree and create a new one.
       $elem = $('#' + el.id)
       
@@ -38,6 +64,10 @@ var shinyTree = function(){
       };
       
       config = $.extend(config, $elem.data('st-config'));
+      
+      if(config.hasOwnProperty('node_customize') && config.node_customize.hasOwnProperty('default')) {
+        config.node_customize.default = tryEval(config.node_customize.default);
+      }
       
       var tree = $(el).jstree(config);
       
