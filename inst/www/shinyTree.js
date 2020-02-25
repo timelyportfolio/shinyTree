@@ -1,5 +1,29 @@
 var shinyTree = function(){
 
+  // copied from https://github.com/vakata/jstree/blob/ebf2112c62f24843c8b0322169ae9696373f5c09/src/misc.js#L407  
+  $.jstree.defaults.node_customize = {
+  		"key": "type",
+  		"switch": {},
+  		"default": null
+  	};
+  
+  $.jstree.plugins.node_customize = function (options, parent) {
+  	this.redraw_node = function (obj, deep, callback, force_draw) {
+  		var node_id = obj;
+  		var el = parent.redraw_node.apply(this, arguments);
+  		if (el) {
+  			var node = this._model.data[node_id];
+  			var cfg = this.settings.node_customize;
+  			var key = cfg.key;
+  			var type =  (node && node.original && node.original[key]);
+  			var customizer = (type && cfg.switch[type]) || cfg.default;
+  			if(customizer)
+  				customizer(el, node);
+  		}
+  		return el;
+  	};
+  }
+
   var treeOutput = new Shiny.OutputBinding();
   $.extend(treeOutput, {
     find: function(scope) {
