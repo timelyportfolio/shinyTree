@@ -205,6 +205,8 @@ var shinyTree = function(){
     },
     setValue: function(el, value) {},
     subscribe: function(el, callback) {
+      var binding = this;
+      
       $(el).on("open_node.jstree", function(e) {
         callback();
       });
@@ -213,8 +215,26 @@ var shinyTree = function(){
         callback();
       });
       
-      $(el).on("changed.jstree", function(e) {
-        callback();
+      $(el).on("changed.jstree", function(e, info) {
+        var id = binding.getId(el);
+        if (id) {
+          var value = {
+            value: binding.getValue(el),
+            type: typeof(info.event) === "undefined" ? "undefined" : info.event.type,
+            action: info.action
+          };
+          var type = binding.getType(el) + ".changed";
+          if (type)
+            id = id + ":" + type;
+    
+          let opts = {
+            priority: "immediate",
+            binding: binding,
+            el: el
+          };
+          Shiny.setInputValue(id, value, opts);
+        }
+        //callback();
       });
       
       $(el).on("model.jstree", function(e) {

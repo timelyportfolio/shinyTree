@@ -4,8 +4,16 @@
 \alias{shinyTree}
 \title{Create a Shiny Tree}
 \usage{
-shinyTree(outputId, checkbox = FALSE, search = FALSE, dragAndDrop = FALSE,
-  theme = "default", themeIcons = TRUE, themeDots = TRUE, config = NULL)
+shinyTree(
+  outputId,
+  checkbox = FALSE,
+  search = FALSE,
+  dragAndDrop = FALSE,
+  theme = "default",
+  themeIcons = TRUE,
+  themeDots = TRUE,
+  config = NULL
+)
 }
 \arguments{
 \item{outputId}{The ID associated with this element}
