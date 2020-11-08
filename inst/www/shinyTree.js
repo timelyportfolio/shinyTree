@@ -93,6 +93,10 @@ var shinyTree = function(){
         config.node_customize.default = tryEval(config.node_customize.default);
       }
       
+      if(config.hasOwnProperty('search') && config.search.hasOwnProperty('search_callback')) {
+        config.search.search_callback = tryEval(config.search.search_callback);
+      }
+      
       var tree = $(el).jstree(config);
       
       if ($elem.data('st-search') === 'TRUE'){
