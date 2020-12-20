@@ -184,8 +184,8 @@ get_leaf_nodes <- function(tree = NULL) {
 #' @export
 get_state_nodes <- function(tree = NULL, leaves = TRUE) {
   if(is.null(tree)) { return(NULL) }
-  selected <- list(text=c(), state=list())
-  
+  selected <- list(text=c(), state=list(), data=list())
+
   lapply(
     tree,
     function(x) {
@@ -202,6 +202,7 @@ get_state_nodes <- function(tree = NULL, leaves = TRUE) {
             ) {
               selected$text[[length(selected$text) + 1]] <<- y$text
               selected$state[[length(selected$state) + 1]] <<- y$state
+              selected$data[[length(selected$data) + 1]] <<- y$data
             }
           }
           if(is.list(y) && "children" %in% names(y) && length(y$children) > 0) {
