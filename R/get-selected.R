@@ -99,8 +99,9 @@ recurse <- function(l, func, ...) {
 #' Get Selected Nodes
 #' 
 #' @param tree \code{List} returned from a 'ShinyTree'.
+#' @param field \code{character} name of field to return instead of 'text'
 #' @export
-get_selected_nodes <- function(tree = NULL) {
+get_selected_nodes <- function(tree = NULL, field = NULL) {
   if(is.null(tree)) { return(NULL) }
   selected <- c()
   
@@ -117,9 +118,16 @@ get_selected_nodes <- function(tree = NULL) {
             # only leaves
             length(y$children) == 0
           ) {
+            returndat <- y$text
+            if(!is.null(field) && "data" %in% names(y) && field %in% names(y$data)) {
+              returndat <- y$data[[field]]
+            }
+            if(!is.null(field) && !("data" %in% names(y) && field %in% names(y$data))) {
+              warning(paste0(field, " not found in node so returning 'text' instead'"), call. = FALSE)
+            }
             selected <<- c(
               selected,
-              y$text
+              returndat
             )
           }
           if(is.list(y) && "children" %in% names(y) && length(y$children) > 0) {

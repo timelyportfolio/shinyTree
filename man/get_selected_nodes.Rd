@@ -4,10 +4,12 @@
 \alias{get_selected_nodes}
 \title{Get Selected Nodes}
 \usage{
-get_selected_nodes(tree = NULL)
+get_selected_nodes(tree = NULL, field = NULL)
 }
 \arguments{
 \item{tree}{\code{List} returned from a 'ShinyTree'.}
+
+\item{field}{\code{character} name of field to return instead of 'text'}
 }
 \description{
 Get Selected Nodes
