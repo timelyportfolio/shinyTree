@@ -82,7 +82,8 @@ var shinyTree = function(){
             'responsive': true,
             'icons': ($elem.data('st-theme-icons') === 'TRUE'),
             'dots': ($elem.data('st-theme-dots') === 'TRUE')
-          }
+          },
+          "expand_selected_onload": false
         },
         plugins: plugins
       };
