@@ -1,6 +1,11 @@
 .onLoad <- function(...) {
 
   tryCatch( {
+    
+    shiny::registerInputHandler("shinyTree", function(val, shinysession, name){
+      val
+    })
+    
     shiny::registerInputHandler(
       "shinyTree.changed",
       function(x, session, inputName) {

@@ -10,14 +10,6 @@ initResourcePaths <- function() {
   shiny::HTML("")
 }
 
-# Parse incoming shinyTree input from the client
-#' @importFrom methods loadMethod
-.onAttach <- function(libname, pkgname){
-  shiny::registerInputHandler("shinyTree", function(val, shinysession, name){
-    val
-  })
-}
-
 jsonToAttr <- function(json){
   ret <- list()
   
