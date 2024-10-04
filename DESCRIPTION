@@ -1,8 +1,8 @@
 Package: shinyTree
 Type: Package
 Title: jsTree Bindings for Shiny
-Version: 0.3.10
-Date: 2023-07-15
+Version: 0.3.11
+Date: 2024-10-03
 Authors@R: c(
   person(family="Trestle Technology, LLC", role="aut", email="cran@trestletechnology.net"),
   person("Jeff", "Allen", role="cre", email="cran@trestletechnology.net"),
@@ -20,7 +20,8 @@ Depends:
     R (>= 2.15.1),
     methods
 Imports:
-    shiny (>= 0.9.0)
+    shiny (>= 0.9.0),
+    htmltools
 Suggests:
     testthat
 BugReports: https://github.com/trestletech/shinyTree/issues

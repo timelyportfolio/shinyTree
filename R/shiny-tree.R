@@ -75,6 +75,14 @@ shinyTree <- function(
       shiny::tags$script(src = 'shinyTree/jsTree-3.3.5/jstree.min.js'),
       shiny::tags$script(src = 'shinyTree/shinyTree.js')
     )),
+    htmltools::htmlDependency(
+      name = paste0("shinyTree-theme-",theme),
+      version = "0.3.11",
+      src = paste0("www/jsTree-3.3.5/themes/",theme),
+      stylesheet = "style.min.css",
+      package = "shinyTree",
+      all_files = TRUE
+    ),
     searchEl,
     shiny::div(id=outputId, class="shiny-tree", 
         `data-st-checkbox`=checkbox, 

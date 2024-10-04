@@ -78,7 +78,7 @@ var shinyTree = function(){
           "check_callback" : ($elem.data('st-dnd') === 'TRUE'),
           'themes': {
             'name': $elem.data('st-theme'),
-            'url': true, // guess path by theme name
+            'url': false, // guess path by theme name
             'responsive': true,
             'icons': ($elem.data('st-theme-icons') === 'TRUE'),
             'dots': ($elem.data('st-theme-dots') === 'TRUE')
