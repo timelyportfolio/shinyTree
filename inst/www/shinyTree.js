@@ -24,92 +24,6 @@ var shinyTree = function(){
   	};
   }
 
-  var treeOutput = new Shiny.OutputBinding();
-  $.extend(treeOutput, {
-    find: function(scope) {
-      return $(scope).find('.shiny-tree');
-    },
-    renderValue: function(el, data) {
-      // ********************* htmlwidgets code to support htmlwidget jsevals ********
-      // Attempt eval() both with and without enclosing in parentheses.
-      // Note that enclosing coerces a function declaration into
-      // an expression that eval() can parse
-      // (otherwise, a SyntaxError is thrown)
-      function tryEval(code) {
-        var result = null;
-        try {
-          result = eval("(" + code + ")");
-        } catch(error) {
-          if (!error instanceof SyntaxError) {
-            throw error;
-          }
-          try {
-            result = eval(code);
-          } catch(e) {
-            if (e instanceof SyntaxError) {
-              throw error;
-            } else {
-              throw e;
-            }
-          }
-        }
-        return result;
-      }
-      
-      // Wipe the existing tree and create a new one.
-      $elem = $('#' + el.id)
-      
-      $elem.jstree('destroy');
-      
-      $elem.html(data);
-      var plugins = [];
-      if ($elem.data('st-checkbox') === 'TRUE'){
-        plugins.push('checkbox');
-      }
-      if ($elem.data('st-search') === 'TRUE'){
-        plugins.push('search');
-      }  
-      if ($elem.data('st-dnd') === 'TRUE'){
-        plugins.push('dnd');
-      }
-      
-      var config = {
-        'core' : {
-          "check_callback" : ($elem.data('st-dnd') === 'TRUE'),
-          'themes': {
-            'name': $elem.data('st-theme'),
-            'url': false, // guess path by theme name
-            'responsive': true,
-            'icons': ($elem.data('st-theme-icons') === 'TRUE'),
-            'dots': ($elem.data('st-theme-dots') === 'TRUE')
-          },
-          "expand_selected_onload": false
-        },
-        plugins: plugins
-      };
-      
-      config = $.extend(config, $elem.data('st-config'));
-      
-      if(config.hasOwnProperty('node_customize') && config.node_customize.hasOwnProperty('default')) {
-        config.node_customize.default = tryEval(config.node_customize.default);
-      }
-      
-      if(config.hasOwnProperty('search') && config.search.hasOwnProperty('search_callback')) {
-        config.search.search_callback = tryEval(config.search.search_callback);
-      }
-      
-      var tree = $(el).jstree(config);
-      
-      if ($elem.data('st-search') === 'TRUE'){
-        $elem.siblings().find('.search-remove').click(function () {
-          $(this).parent().find('.input').val('');
-          $.jstree.reference($elem).search('');
-        });
-      }
-    }
-  });
-  Shiny.outputBindings.register(treeOutput, 'shinyTree.treeOutput');
-  
   var treeInput = new Shiny.InputBinding();
   $.extend(treeInput, {
     find: function(scope) {
@@ -208,6 +122,84 @@ var shinyTree = function(){
         }
       }
     },
+    renderValue: function(el, data) {
+      // ********************* htmlwidgets code to support htmlwidget jsevals ********
+      // Attempt eval() both with and without enclosing in parentheses.
+      // Note that enclosing coerces a function declaration into
+      // an expression that eval() can parse
+      // (otherwise, a SyntaxError is thrown)
+      function tryEval(code) {
+        var result = null;
+        try {
+          result = eval("(" + code + ")");
+        } catch(error) {
+          if (!error instanceof SyntaxError) {
+            throw error;
+          }
+          try {
+            result = eval(code);
+          } catch(e) {
+            if (e instanceof SyntaxError) {
+              throw error;
+            } else {
+              throw e;
+            }
+          }
+        }
+        return result;
+      }
+      
+      // Wipe the existing tree and create a new one.
+      $elem = $('#' + el.id)
+      
+      $elem.jstree('destroy');
+      
+      $elem.html(data);
+      var plugins = [];
+      if ($elem.data('st-checkbox') === 'TRUE'){
+        plugins.push('checkbox');
+      }
+      if ($elem.data('st-search') === 'TRUE'){
+        plugins.push('search');
+      }  
+      if ($elem.data('st-dnd') === 'TRUE'){
+        plugins.push('dnd');
+      }
+      
+      var config = {
+        'core' : {
+          "check_callback" : ($elem.data('st-dnd') === 'TRUE'),
+          'themes': {
+            'name': $elem.data('st-theme'),
+            'url': false, // guess path by theme name
+            'responsive': true,
+            'icons': ($elem.data('st-theme-icons') === 'TRUE'),
+            'dots': ($elem.data('st-theme-dots') === 'TRUE')
+          },
+          "expand_selected_onload": false
+        },
+        plugins: plugins
+      };
+      
+      config = $.extend(config, $elem.data('st-config'));
+      
+      if(config.hasOwnProperty('node_customize') && config.node_customize.hasOwnProperty('default')) {
+        config.node_customize.default = tryEval(config.node_customize.default);
+      }
+      
+      if(config.hasOwnProperty('search') && config.search.hasOwnProperty('search_callback')) {
+        config.search.search_callback = tryEval(config.search.search_callback);
+      }
+      
+      var tree = $(el).jstree(config);
+      
+      if ($elem.data('st-search') === 'TRUE'){
+        $elem.siblings().find('.search-remove').click(function () {
+          $(this).parent().find('.input').val('');
+          $.jstree.reference($elem).search('');
+        });
+      }
+    },
     setValue: function(el, value) {},
     subscribe: function(el, callback) {
       var binding = this;
@@ -264,8 +256,7 @@ var shinyTree = function(){
         // make sure that jstree has been rendered
         //  surely there is a better way to do this
         if( $(el).jstree(true) === false ) {
-          Shiny.outputBindings.bindingNames["shinyTree.treeOutput"]
-            .binding.renderValue(el);
+          this.renderValue(el);
         }
         
         // make sure that jstree rendered and ready
